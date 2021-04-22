@@ -23,11 +23,15 @@ int modulus(int first, int sec){
 
 
 int main(int argc, char** argv){
+	FILE* log;
 	int option;
+	int dFlag = 0;
+	
 	while( (option = getopt(argc, argv, "dh")) != -1){
 		switch(option){
 			case 'd':
-				freopen("log.txt","w", stderr);
+				log = freopen("log.txt","w", stderr);
+				dFlag = 1;
 				break;
 			case 'h': 
 				help();
@@ -43,5 +47,8 @@ int main(int argc, char** argv){
 	
 	}
 
+
+	if(dFlag == 1)
+		fclose(log);	
 	return EXIT_SUCCESS;
 }
