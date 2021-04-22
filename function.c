@@ -65,7 +65,7 @@ void testSubtract(){
 void testModulus(){
         int first = 26;
         int sec = 10;
-        int expected = 16;
+        int expected = 6;
         int actual = modulus(first, sec);
 
 

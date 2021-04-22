@@ -4,21 +4,21 @@
 #include <unistd.h>
 #include "function.h"
 
-
+#define TEST 1
 int add(int first, int sec){
-	return 0;
+	return first + sec;
 }
 int multiply(int first, int sec){
-	return 0;
+	return first * sec;
 }
 int subtract(int first, int sec){
-	return 0;
+	return first - sec;
 }
 float divide(int first, int sec){
-	return 0;
+	return (float)first/sec;
 }
 int modulus(int first, int sec){
-	return 0;
+	return first % sec;
 }
 
 
@@ -46,7 +46,11 @@ int main(int argc, char** argv){
 		}
 	
 	}
-
+	
+	if(TEST){
+		runTest();
+		printf("All test passed");
+	}	
 
 	if(dFlag == 1)
 		fclose(log);	
