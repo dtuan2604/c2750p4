@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "calculator.h"
 void help(){
-
+	printf("The options for program are:\n");
+	printf("-d: Turn off all error messages.\n");
+	printf("-h: Display help menu.\n");
+	printf("When running the program will ask you whether you would like to\n");
+	printf("add, multiply, divide, subtract and modulus. After that, the program\n");
+	printf("will prompt you to enter any two integer numbers to perform the operation.\n"); 
 }
 
 
@@ -34,12 +39,12 @@ void testMultiply(){
 void testDivide(){
         int first = 260;
         int sec = 10;
-        int expected = 26;
-        int actual = divide(first, sec);
+        float expected = 26;
+        float actual = divide(first, sec);
 
 
         if(expected != actual){
-                fprintf(stderr,"testDivide has failed! actual: %d, expected: %d", actual, expected);
+                fprintf(stderr,"testDivide has failed! actual: %f, expected: %f", actual, expected);
                 exit(1);
         }
         return;

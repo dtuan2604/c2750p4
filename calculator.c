@@ -11,7 +11,7 @@ int multiply(int first, int sec){
 int subtract(int first, int sec){
 	return 0;
 }
-int divide(int first, int sec){
+float divide(int first, int sec){
 	return 0;
 }
 int modulus(int first, int sec){
@@ -20,7 +20,6 @@ int modulus(int first, int sec){
 
 
 int main(int argc, char** argv){
-	printf("Hello World");	
 
 
 	return EXIT_SUCCESS;
