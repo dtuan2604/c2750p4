@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdbool.h>
 #include "function.h"
 
 #define TEST 1
+
 int add(int first, int sec){
 	return first + sec;
 }
@@ -26,7 +29,9 @@ int main(int argc, char** argv){
 	FILE* log;
 	int option;
 	int dFlag = 0;
-	
+	char opr[9]; 
+	bool yorn = true;
+		
 	while( (option = getopt(argc, argv, "dh")) != -1){
 		switch(option){
 			case 'd':
@@ -49,8 +54,22 @@ int main(int argc, char** argv){
 	
 	if(TEST){
 		runTest();
-		printf("All test passed");
 	}	
+		
+	while(yorn){
+		printf("Please enter operation you would like to perform with calculator:\n");
+		printf("add\nmultiply\ndivide\nsubtract\nmodulus\n");
+		scanf("%s", opr);
+		while(strcmp(opr,"add") != 0 && strcmp(opr,"multiply") != 0 && strcmp(opr,"divide") != 0
+			&& strcmp(opr,"subtract") != 0 && strcmp(opr,"modulus") != 0){
+			fprintf(stderr, "Unknown operation '%s'\n",opr);
+			printf("Please try again: ");
+			scanf("%s", opr);
+		} 
+		printf("The operation is %s", opr);
+		break;
+
+	}
 
 	if(dFlag == 1)
 		fclose(log);	
