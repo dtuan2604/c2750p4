@@ -47,29 +47,29 @@ bool isNum(char* str){
 float handleCal(char* first, char* sec, char* opr){
 	float a = atof(first);
 	float b = atof(sec);
-	if(strcmp(opr,"add"))
+	if(strcmp(opr,"add") == 0)
 		return add(a,b);
-	else if(strcmp(opr,"multiply"))
+	else if(strcmp(opr,"multiply") == 0)
 		return multiply(a,b);
-	else if(strcmp(opr,"subtract"))
+	else if(strcmp(opr,"subtract") == 0)
 		return subtract(a,b);
-	else if(strcmp(opr,"divide"))
+	else if(strcmp(opr,"divide") == 0)
 		return divide(a,b);
-	else if(strcmp(opr,"modulus"))
+	else if(strcmp(opr,"modulus") == 0)
 		return modulus(a,b);
 	else
-		printf("Your calculator currently has problems.\n");
-	return 0;
+		fprintf(stderr,"Your calculator currently has problems.\n");
+	exit(1);
 }
 
 int main(int argc, char** argv){
 	FILE* log;
 	int option;
 	int dFlag = 0;
-//	float result; 
+	float result; 
 	char opr[9];
 	char first[10], sec[10]; 
-	bool yorn = true;
+	char yorn = 'y';
 		
 	while( (option = getopt(argc, argv, "dh")) != -1){
 		switch(option){
@@ -81,7 +81,7 @@ int main(int argc, char** argv){
 				help();
 				return 1;
 			case '?':
-				if( isprint(optopt))
+				if(isprint(optopt))
 					fprintf(stderr, "Unknow option `-%c`.\n",optopt);
 				return EXIT_FAILURE;
 			default:
@@ -95,7 +95,7 @@ int main(int argc, char** argv){
 		runTest();
 	}	
 		
-	while(yorn){
+	while(yorn == 'y' || yorn == 'Y'){
 		printf("Please enter operation you would like to perform with calculator:\n");
 		printf("add\nmultiply\ndivide\nsubtract\nmodulus\nquit\n");
 		scanf("%s", opr);
@@ -105,15 +105,25 @@ int main(int argc, char** argv){
 			printf("Please try again: ");
 			scanf("%s", opr);
 		} 
-		printf("Please enter the two numbers separated by white space: ");
-		scanf("%s", first);
-		scanf("%s", sec);				
-		while(!isNum(first) || !isNum(sec)){
-			printf("Please try again: ");
+		
+		if(strcmp(opr, "quit") != 0){
+			printf("Please enter the two numbers separated by white space: ");
 			scanf("%s", first);
-			scanf("%s", sec);
-		}
-		break;		
+			scanf("%s", sec);				
+			while(!isNum(first) || !isNum(sec)){
+				printf("Please try again: ");
+				scanf("%s", first);
+				scanf("%s", sec);
+			}
+			result = handleCal(first, sec, opr);
+			printf("The answer is %.3f\n", result);
+			scanf("%c", &yorn); // to get rid of eof character
+			do{
+				printf("Would you like to keep calculating? Enter y to keep going: ");
+				scanf("%c",&yorn);
+			}while(yorn == '\n');
+		}else
+			break;
 	}
 
 	if(dFlag == 1)

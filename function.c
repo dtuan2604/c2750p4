@@ -7,7 +7,7 @@ void help(){
 	printf("-h: Display help menu.\n");
 	printf("When running the program will ask you whether you would like to\n");
 	printf("add, multiply, divide, subtract and modulus. After that, the program\n");
-	printf("will prompt you to enter any two integer numbers to perform the operation.\n"); 
+	printf("will prompt you to enter any two numbers to perform the operation.\n"); 
 }
 
 
