@@ -27,13 +27,16 @@ float modulus(float first, float sec){
 bool isNum(char* str){
 	int size = (int)strlen(str);
 	int i=0, dotFlag = 0;
-	char dot = '.';
+	if(str[i] == '-' || isdigit(str[i]))
+		i++;
 	while(i<size){
-		if(str[i] == dot)
-			dotFlag++;
-		if(isdigit(str[i]) == false || dotFlag > 1){
-			fprintf(stderr,"'%s' is not a number.\n",str);
-			return false;
+		if(isdigit(str[i]) == false){
+			if(str[i] == '.' && dotFlag < 1)
+				dotFlag++;
+			else{
+				fprintf(stderr,"'%s' is not a number.\n",str);
+				return false;
+			}
 		}
 		i++;
 	}
