@@ -7,4 +7,4 @@ OBJ = function.o calculator.o
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 calculator: $(OBJ)
-	gcc $(CFLAGS) -o $@ $^
+	gcc $(CFLAGS) -lm -o $@ $^

@@ -4,32 +4,68 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "function.h"
 
 #define TEST 1
 
-int add(int first, int sec){
+float add(float first, float sec){
 	return first + sec;
 }
-int multiply(int first, int sec){
+float multiply(float first, float sec){
 	return first * sec;
 }
-int subtract(int first, int sec){
+float subtract(float first, float sec){
 	return first - sec;
 }
-float divide(int first, int sec){
-	return (float)first/sec;
+float divide(float first, float sec){
+	return first/sec;
 }
-int modulus(int first, int sec){
-	return first % sec;
+float modulus(float first, float sec){
+	return fmod(first,sec);
 }
+bool isNum(char* str){
+	int size = (int)strlen(str);
+	int i=0, dotFlag = 0;
+	char dot = '.';
+	while(i<size){
+		if(str[i] == dot)
+			dotFlag++;
+		if(isdigit(str[i]) == false || dotFlag > 1){
+			fprintf(stderr,"'%s' is not a number.\n",str);
+			return false;
+		}
+		i++;
+	}
 
+	return true;
+
+}
+float handleCal(char* first, char* sec, char* opr){
+	float a = atof(first);
+	float b = atof(sec);
+	if(strcmp(opr,"add"))
+		return add(a,b);
+	else if(strcmp(opr,"multiply"))
+		return multiply(a,b);
+	else if(strcmp(opr,"subtract"))
+		return subtract(a,b);
+	else if(strcmp(opr,"divide"))
+		return divide(a,b);
+	else if(strcmp(opr,"modulus"))
+		return modulus(a,b);
+	else
+		printf("Your calculator currently has problems.\n");
+	return 0;
+}
 
 int main(int argc, char** argv){
 	FILE* log;
 	int option;
 	int dFlag = 0;
-	char opr[9]; 
+//	float result; 
+	char opr[9];
+	char first[10], sec[10]; 
 	bool yorn = true;
 		
 	while( (option = getopt(argc, argv, "dh")) != -1){
@@ -58,17 +94,23 @@ int main(int argc, char** argv){
 		
 	while(yorn){
 		printf("Please enter operation you would like to perform with calculator:\n");
-		printf("add\nmultiply\ndivide\nsubtract\nmodulus\n");
+		printf("add\nmultiply\ndivide\nsubtract\nmodulus\nquit\n");
 		scanf("%s", opr);
 		while(strcmp(opr,"add") != 0 && strcmp(opr,"multiply") != 0 && strcmp(opr,"divide") != 0
-			&& strcmp(opr,"subtract") != 0 && strcmp(opr,"modulus") != 0){
+			&& strcmp(opr,"subtract") != 0 && strcmp(opr,"modulus") != 0 && strcmp(opr, "quit")){
 			fprintf(stderr, "Unknown operation '%s'\n",opr);
 			printf("Please try again: ");
 			scanf("%s", opr);
 		} 
-		printf("The operation is %s", opr);
-		break;
-
+		printf("Please enter the two numbers separated by white space: ");
+		scanf("%s", first);
+		scanf("%s", sec);				
+		while(!isNum(first) || !isNum(sec)){
+			printf("Please try again: ");
+			scanf("%s", first);
+			scanf("%s", sec);
+		}
+		break;		
 	}
 
 	if(dFlag == 1)

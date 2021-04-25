@@ -1,6 +1,6 @@
-int add(int, int);
-int multiply(int, int);
-float divide(int, int);
-int subtract(int, int);
-int modulus(int, int);
+float add(float, float);
+float multiply(float, float);
+float divide(float, float);
+float subtract(float, float);
+float modulus(float, float);
 int main(int, char**);
